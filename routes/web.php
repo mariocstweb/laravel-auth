@@ -26,7 +26,7 @@ Route::prefix('/admin')->name('admin.')->middleware('auth')->group(function () {
     // Rotta per la home di amministrazione
     Route::get('', AdminHomeController::class)->name('home');
     // Rotte per le operazioni CRUD
-    Route::resource('project', ProjectController::class);
+    Route::resource('projects', ProjectController::class);
 });
 
 
