@@ -16,8 +16,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+// Guest-Home
 Route::get('/', GuestHomeController::class)->name('guest.home');
-
+// Admin-Home
 Route::get('/admin', AdminHomeController::class)->middleware(['auth', 'verified'])->name('admin.home');
 
 Route::middleware('auth')->group(function () {
