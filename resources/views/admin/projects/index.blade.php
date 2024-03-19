@@ -5,10 +5,12 @@
   <thead>
     <tr>
       <th scope="col">ID</th>
-      <th scope="col">Title</th>
+      <th scope="col">Titolo</th>
       <th scope="col">Slug</th>
-      <th scope="col">Content</th>
-      <th scope="col">Language</th>
+      <th scope="col">Contenuto</th>
+      <th scope="col">Linguaggio</th>
+      <th scope="col">Creato:</th>
+      <th scope="col">Aggiornato:</th>
     </tr>
   </thead>
   <tbody>
@@ -18,6 +20,8 @@
       <td>{{$project->title}}</td>
       <td>{{$project->slug}}</td>
       <td>{{$project->content}}</td>
+      <td>{{$project->created_at}}</td>
+      <td>{{$project->updated_at}}</td>
       <td>{{$project->programming_language}}</td>
       <td>
         <a href="{{route('admin.projects.show', $project)}}">
