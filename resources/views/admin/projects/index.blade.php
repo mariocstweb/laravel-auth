@@ -42,7 +42,7 @@
               <i class="fa-solid fa-eye"></i>
             </a>
 
-        <form action="{{route('admin.projects.destroy', $project->id)}}" method="POST">
+        <form action="{{route('admin.projects.destroy', $project->id)}}" method="POST" id="delete-form">
           @csrf
           @method('DELETE')
           <button type="submit" class="btn btn-danger"><i class="fa-solid fa-trash-can"></i></button>
@@ -60,4 +60,17 @@
   @endforelse
   </tbody>
 </table>
+@endsection
+@section('scripts')
+    <script>
+        const deleteForm = document.getElementById('delete-form');
+
+        deleteForm.addEventListener('submit', e => {
+            e.preventDefault();
+
+            const confirmation = confirm('Sei sicuro di voler spostare questo progetto nel cestino?');
+
+            if(confirmation) deleteForm.submit();
+        });
+    </script>
 @endsection

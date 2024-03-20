@@ -34,7 +34,7 @@
           @method('PATCH')
           <button type="submit" class="btn btn-success"><i class="fa-solid fa-arrows-rotate"></i></button>
         </form>
-        <form action="{{route('admin.projects.drop', $project->id)}}" method="POST">
+        <form action="{{route('admin.projects.drop', $project->id)}}" method="POST" id="delete-form">
           @csrf
           @method('DELETE')
           <button type="submit" class="btn btn-danger"><i class="fa-solid fa-trash-can"></i></button>
@@ -51,4 +51,18 @@
   @endforelse
   </tbody>
 </table>
+@endsection
+
+@section('scripts')
+    <script>
+        const deleteForm = document.getElementById('delete-form');
+
+        deleteForm.addEventListener('submit', e => {
+            e.preventDefault();
+
+            const confirmation = confirm('Sei sicuro di voler definitivamente il progetto?');
+
+            if(confirmation) deleteForm.submit();
+        });
+    </script>
 @endsection
