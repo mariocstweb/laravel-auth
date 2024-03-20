@@ -9,8 +9,8 @@
 <table class="table">
   <h1 class="text-center p-3">Projects</h1>
   <div class="d-flex justify-content-end gap-2">
-    <a href="{{route('admin.projects.trash')}}" class="btn btn-primary">Vedi Cestino</a>
-    <a href="{{route('admin.projects.create')}}" class="btn btn-primary"><i class="fa-solid fa-plus"></i>
+    <a href="{{route('admin.projects.trash')}}" class="btn btn-info">Vedi Cestino</a>
+    <a href="{{route('admin.projects.create')}}" class="btn btn-success"><i class="fa-solid fa-plus"></i>
     Aggiungi progetto
     </a>
   </div>
@@ -47,6 +47,7 @@
           @method('DELETE')
           <button type="submit" class="btn btn-danger"><i class="fa-solid fa-trash-can"></i></button>
         </form>
+        <a href="{{route('admin.projects.edit', $project->id)}}" class="btn btn-warning"><i class="fa-solid fa-pencil"></i></a>
       </div>
       </td>
     </tr>

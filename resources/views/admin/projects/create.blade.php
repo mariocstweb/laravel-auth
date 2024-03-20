@@ -5,6 +5,16 @@
 @section('content')
 <form action="{{route('admin.projects.store')}}" method="POST">
   @csrf
+  @if($errors->any())
+  <div class="alert alert-danger">
+    <h1>Campi non validi:</h1>
+    <ul>
+      @foreach ($errors->all() as $error)
+        <li>{{$error}}</li>
+      @endforeach
+    </ul>
+  </div>
+  @endif
 <div class="row p-3">
     <div class="col-6">
       <div class="mb-3">
