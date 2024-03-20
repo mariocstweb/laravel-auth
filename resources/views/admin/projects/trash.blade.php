@@ -1,13 +1,10 @@
 @extends('layouts.app')
 
+@section('title', 'Cestino')
+
 @section('content')
-
-
 <table class="table">
-  <h1 class="text-center p-3">Projects</h1>
-  <div class="d-flex justify-content-end">
-    <a href="{{route('admin.projects.trash')}}">Vedi Cestino</a>
-  </div>
+  <h1 class="text-center p-3">Deleted projects</h1>
   <thead>
     <tr>
       <th scope="col">ID</th>
@@ -32,11 +29,12 @@
       <td>{{$project->programming_language}}</td>
       <td>
         <div class="d-flex gap-2">
-            <a href="{{route('admin.projects.show', $project)}}" class="btn btn-primary">
-              <i class="fa-solid fa-eye"></i>
-            </a>
-        
-        <form action="{{route('admin.projects.destroy', $project->id)}}" method="POST">
+        <form action="{{route('admin.projects.restore', $project->id)}}" method="POST">
+          @csrf
+          @method('PATCH')
+          <button type="submit" class="btn btn-success"><i class="fa-solid fa-arrows-rotate"></i></button>
+        </form>
+        <form action="{{route('admin.projects.drop', $project->id)}}" method="POST">
           @csrf
           @method('DELETE')
           <button type="submit" class="btn btn-danger"><i class="fa-solid fa-trash-can"></i></button>

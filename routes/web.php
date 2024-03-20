@@ -25,6 +25,13 @@ Route::get('/', GuestHomeController::class)->name('guest.home');
 Route::prefix('/admin')->name('admin.')->middleware('auth')->group(function () {
     // Rotta per la home di amministrazione
     Route::get('', AdminHomeController::class)->name('home');
+    // Rotta per spostare un progetto nel cestino
+    Route::get('/projects/trash', [ProjectController::class, 'trash'])->name('projects.trash');
+    // Rotta per il restore di un progetto
+    Route::patch('/projects/{project}/restore', [ProjectController::class, 'restore'])->name('projects.restore')->withTrashed();
+    // Rotta per eliminare un progetto definitivamente
+    Route::delete('/projects/{project}/drop', [ProjectController::class, 'drop'])->name('projects.drop')->withTrashed();
+
     // Rotte per le operazioni CRUD
     Route::resource('projects', ProjectController::class);
 });
