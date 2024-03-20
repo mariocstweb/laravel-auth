@@ -1,14 +1,11 @@
-@extends('layouts.app')
-
-@section('title', 'Modifica un progetto')
-
-
-@section('content')
-<h1 class="text-center p-3">Modifica il progetto</h1>
-{{-- <form action="{{route('admin.projects.update', $project)}}" method="POST">
-  @csrf
-  @method('PUT')
-  @if($errors->any())
+@if($project->exists)
+<form action="{{route('admin.projects.update', $project)}}" method="POST">
+@method('PUT')
+@else
+<form action="{{route('admin.projects.store')}}" method="POST">
+@endif
+@csrf
+@if($errors->any())
   <div class="alert alert-danger">
     <h1>Campi non validi:</h1>
     <ul>
@@ -38,9 +35,7 @@
       </div>
     </div>
     <div class="d-flex justify-content-center p-3">
-      <button type="submit" class="btn btn-primary me-3">Modifica</button>
+      <button type="submit" class="btn btn-primary me-3">Salva</button>
       <button type="reset" class="btn btn btn-secondary">Reset</button>
     </div>
-</form> --}}
-@include('includes.form.form')
-@endsection
+</form>

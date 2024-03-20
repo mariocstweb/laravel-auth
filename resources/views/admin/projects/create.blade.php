@@ -3,7 +3,8 @@
 @section('title', 'Aggiungi un progetto')
 
 @section('content')
-<form action="{{route('admin.projects.store')}}" method="POST">
+<h1 class="text-center">Aggiungi un progetto</h1>
+{{-- <form action="{{route('admin.projects.store')}}" method="POST">
   @csrf
   @if($errors->any())
   <div class="alert alert-danger">
@@ -38,5 +39,6 @@
       <button type="submit" class="btn btn-primary me-3">Aggiungi</button>
       <button type="reset" class="btn btn btn-secondary">Reset</button>
     </div>
-</form> 
+</form>  --}}
+@include('includes.form.form')
 @endsection

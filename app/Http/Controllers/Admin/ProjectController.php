@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Project;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Illuminate\Validation\Rule;
 
 class ProjectController extends Controller
 {
@@ -23,7 +24,8 @@ class ProjectController extends Controller
      */
     public function create()
     {
-        return view('admin.projects.create');
+        $project = new Project();
+        return view('admin.projects.create', compact('project'));
     }
 
     /**
@@ -45,7 +47,8 @@ class ProjectController extends Controller
         $project->save();
 
         return to_route('admin.projects.show', $project)
-            ->with('success', 'Progetto creato con successo!');
+            ->with('type', 'success')
+            ->with('message', 'Progetto creato con successo!');
     }
 
     /**
@@ -70,7 +73,7 @@ class ProjectController extends Controller
     public function update(Request $request, Project $project)
     {
         $request->validate([
-            'title' => 'required|string',
+            'title' => ['required', 'string', Rule::unique('projects')->ignore($project->id)],
             'programming_language' => 'required|string|max:255',
             'content' => 'required|string'
         ]);
