@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Project;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class ProjectController extends Controller
 {
@@ -22,7 +23,7 @@ class ProjectController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.projects.create');
     }
 
     /**
@@ -30,7 +31,21 @@ class ProjectController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'title' => 'required|string|max:255',
+            'programming_language' => 'required|string|max:255',
+            'content' => 'required|string',
+        ]);
+
+        $data = $request->all();
+        $project = new Project();
+        $project->fill($data);
+        $project->slug = Str::slug($project->title);
+
+        $project->save();
+
+        return to_route('admin.projects.show', $project)
+            ->with('success', 'Progetto creato con successo!');
     }
 
     /**
@@ -64,7 +79,9 @@ class ProjectController extends Controller
     {
         $project->delete();
 
-        return to_route('admin.projects.index')->with('type', 'success')->with('message', 'Hai eliminato con successo il progetto');
+        return to_route('admin.projects.index')
+            ->with('type', 'success')
+            ->with('message', 'Hai spostato il progetto nel cestino');
     }
 
 

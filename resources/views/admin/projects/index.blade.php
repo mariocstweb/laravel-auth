@@ -1,12 +1,18 @@
 @extends('layouts.app')
 
+@section('title', 'Projects')
+
+
 @section('content')
 
 
 <table class="table">
   <h1 class="text-center p-3">Projects</h1>
-  <div class="d-flex justify-content-end">
-    <a href="{{route('admin.projects.trash')}}">Vedi Cestino</a>
+  <div class="d-flex justify-content-end gap-2">
+    <a href="{{route('admin.projects.trash')}}" class="btn btn-primary">Vedi Cestino</a>
+    <a href="{{route('admin.projects.create')}}" class="btn btn-primary"><i class="fa-solid fa-plus"></i>
+    Aggiungi progetto
+    </a>
   </div>
   <thead>
     <tr>
@@ -35,7 +41,7 @@
             <a href="{{route('admin.projects.show', $project)}}" class="btn btn-primary">
               <i class="fa-solid fa-eye"></i>
             </a>
-        
+
         <form action="{{route('admin.projects.destroy', $project->id)}}" method="POST">
           @csrf
           @method('DELETE')
