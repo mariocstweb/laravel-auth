@@ -22,6 +22,7 @@ class ProjectFactory extends Factory
             'title' => $title,
             'slug' => Str::slug($title),
             'content' => fake()->paragraph(15, true),
+            'image' => fake()->imageUrl(250, 250, true),
             'programming_language' => fake()->randomElement(['HTML', 'CSS', 'JS', 'PHP']),
         ];
     }

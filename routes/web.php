@@ -31,6 +31,9 @@ Route::prefix('/admin')->name('admin.')->middleware('auth')->group(function () {
     Route::patch('/projects/{project}/restore', [ProjectController::class, 'restore'])->name('projects.restore')->withTrashed();
     // Rotta per eliminare un progetto definitivamente
     Route::delete('/projects/{project}/drop', [ProjectController::class, 'drop'])->name('projects.drop')->withTrashed();
+    // Rotta per svuotare il cestino
+    Route::delete('/admin/projects/deleteAll', [ProjectController::class, 'deleteAll'])->name('admin.projects.deleteAll');
+
 
     // Rotte per le operazioni CRUD
     Route::resource('projects', ProjectController::class);
