@@ -4,7 +4,7 @@
  <h1 class="text-center p-3">{{$project->title}}</h1>
  <div class="container d-flex justify-content-center">
   <div class="card" style="width: 18rem;">
-    <img src="{{$project->image}}" class="card-img-top p-3" alt="...">
+    <img src="{{asset('storage/' . $project->image)}}" class="card-img-top p-3" alt="...">
     <div class="card-body">
       <h5 class="card-title">{{$project->title}}</h5>
       <p class="card-text">{{$project->content}}</p>

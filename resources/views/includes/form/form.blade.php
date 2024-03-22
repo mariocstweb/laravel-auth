@@ -1,8 +1,8 @@
 @if($project->exists)
-<form action="{{route('admin.projects.update', $project)}}" method="POST">
+<form action="{{route('admin.projects.update', $project)}}" method="POST" enctype="multipart/form-data">
 @method('PUT')
 @else
-<form action="{{route('admin.projects.store')}}" method="POST">
+<form action="{{route('admin.projects.store')}}" method="POST" enctype="multipart/form-data">
 @endif
 @csrf
 @if($errors->any())
@@ -26,6 +26,12 @@
       <div class="mb-3">
         <label for="exampleFormControlInput1" class="form-label">Linguaggio</label>
         <input type="text" class="form-control" placeholder="Insert title" name="programming_language" value="{{old('programming_language', $project->programming_language)}}">
+      </div>
+    </div>
+    <div class="col-12">
+      <div class="mb-3">
+        <label for="exampleFormControlInput1" class="form-label">Immagine</label>
+        <input type="file" class="form-control" placeholder="Insert title" name="image" value="{{old('image', $project->image)}}">
       </div>
     </div>
     <div class="col-12">

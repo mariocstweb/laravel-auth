@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\Project;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Arr;
 use Illuminate\Validation\Rule;
 
 class ProjectController extends Controller
@@ -36,6 +38,7 @@ class ProjectController extends Controller
         $request->validate([
             'title' => 'required|string|max:255',
             'programming_language' => 'required|string|max:255',
+            'image' => 'nullable',
             'content' => 'required|string',
         ]);
 
@@ -43,6 +46,11 @@ class ProjectController extends Controller
         $project = new Project();
         $project->fill($data);
         $project->slug = Str::slug($project->title);
+
+        if (Arr::exists($data, 'image')) {
+            $img_url = Storage::putFileAs('projects_image', $data['image']);
+            $project->image = $img_url;
+        }
 
         $project->save();
 
@@ -74,11 +82,18 @@ class ProjectController extends Controller
     {
         $request->validate([
             'title' => ['required', 'string', Rule::unique('projects')->ignore($project->id)],
+            'image' => 'nullable',
             'programming_language' => 'required|string|max:255',
             'content' => 'required|string'
         ]);
 
         $data = $request->all();
+
+        if (Arr::exists($data, 'image')) {
+            if ($project->image) Storage::delete($project->image);
+            $img_url = Storage::putFileAs('project_image', $data['image']);
+            $project->image = $img_url;
+        }
 
         $project->update($data);
 
@@ -119,6 +134,7 @@ class ProjectController extends Controller
 
     public function drop(Project $project)
     {
+        if ($project->image) Storage::delete($project->image);
         $project->forceDelete();
         return to_route('admin.projects.trash')
             ->with('type', 'danger')
