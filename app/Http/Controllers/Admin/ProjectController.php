@@ -48,7 +48,7 @@ class ProjectController extends Controller
         $project->slug = Str::slug($project->title);
 
         if (Arr::exists($data, 'image')) {
-            $img_url = Storage::putFileAs('projects_image', $data['image']);
+            $img_url = Storage::putFileAs('project_image', $data['image']);
             $project->image = $img_url;
         }
 
